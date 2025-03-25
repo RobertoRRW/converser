@@ -7,13 +7,20 @@ authors = [
 ]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<4.0"
 dependencies = [
     "openai-agents (>=0.0.6,<0.0.7)",
-    "dotenv (>=0.9.9,<0.10.0)"
+    "dotenv (>=0.9.9,<0.10.0)",
+    "pydantic (>=2.10.6,<3.0.0)",
+    "pydantic-graph (>=0.0.43,<0.0.44)",
+    "pydantic-ai (>=0.0.43,<0.0.44)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+basedpyright = "^1.28.3"
+
