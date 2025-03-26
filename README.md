@@ -1,6 +1,6 @@
 # Converser
 
-A conversational agent framework for building automated customer support workflows.
+A conversational agent following an automated customer support workflow.
 
 ## System Architecture
 
@@ -32,6 +32,16 @@ The conversation follows these main steps:
 6. **Solution Proposal**: Providing troubleshooting steps to the customer
 7. **Satisfaction Check**: Determining if the problem was resolved or needs escalation
 8. **Farewell**: Concluding the conversation appropriately
+
+Each node in the graph contains an OpenAI Voice pipeline using the Agents SDK. The graph itself was made 
+with Pydantic graph. Most frameworks for handling Agent orchestration are focused on having a graph of
+agents to handle a single user request, our use case requires a graph to instead represent different
+stages of the conversation, while each node could be either a single Agent or a "swarm".
+
+A notable challenge is getting agents to both output structured (Pydantic/jsonschema) output while at
+the same time streaming dialogue. Wating for the entire output object produces too much latency. This is
+why we implement partial json parser: this allows the "dialogue" field to be streamed out first, then
+the rest of the object is formed
 
 ## Features
 
@@ -76,6 +86,9 @@ Start a conversation session:
 poetry run conversation
 ```
 
+Press space to start recording your message, and press space again to 
+stop recording and send. Note that it's not push-to-talk.
+
 To save conversation history:
 
 ```
@@ -110,6 +123,22 @@ poetry run conversation --tsv data/states.tsv
 ```
 poetry run pytest
 ```
+
+## Further Improvements
+- The sending of the audio can be much improved. A continuous stream should be implemented instead
+of taking turns. OpenAIs realtime API could be used.
+
+- Much refinement could be done on the agent prompts and the conversation graph.
+
+- A current limitation is that all nodes must follow the pattern [User message]->[Agent response].
+Some parts would be improved if the Agent were allowed to talk first.
+
+- The user should be able to switch the conversation language. This is especially important at
+the beginning.
+
+- There should be more work done on improving general latency.
+
+- Eventually should be made deployable and useable through websockets.
 
 ## License
 
