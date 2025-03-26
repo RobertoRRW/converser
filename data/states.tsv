@@ -1,0 +1,9 @@
+conversation_language	user_sentiment	initial_query	issue_description	urgency	email	device_type	model	brand	attempted_solutions	state_of_issue	message_count
+español	Upset	la computadora no enciende	La laptop muestra el logo de Lenovo y luego se apaga inmediatamente.	High	abc@3c.com	laptop	ThinkPad T470	Lenovo	"C|o|m|p|r|e|n|d|o| |e|l| |p|r|o|b|l|e|m|a|.| |A|q|u|í| |a|l|g|u|n|a|s| |s|o|l|u|c|i|o|n|e|s| |q|u|e| |p|u|e|d|e|s| |i|n|t|e|n|t|a|r|:|
+|
+|1|.| |D|e|s|c|o|n|e|c|t|a| |e|l| |c|a|r|g|a|d|o|r| |y| |r|e|t|i|r|a| |l|a| |b|a|t|e|r|í|a|.| |L|u|e|g|o|,| |m|a|n|t|é|n| |p|r|e|s|i|o|n|a|d|o| |e|l| |b|o|t|ó|n| |d|e| |e|n|c|e|n|d|i|d|o| |p|o|r| |1|5| |s|e|g|u|n|d|o|s|.|
+|2|.| |V|u|e|l|v|e| |a| |c|o|n|e|c|t|a|r| |s|o|l|o| |e|l| |c|a|r|g|a|d|o|r| |y| |e|n|c|i|e|n|d|e| |l|a| |l|a|p|t|o|p| |p|a|r|a| |v|e|r| |s|i| |a|r|r|a|n|c|a| |c|o|r|r|e|c|t|a|m|e|n|t|e|.|
+|3|.| |S|i| |e|l| |p|r|o|b|l|e|m|a| |p|e|r|s|i|s|t|e|,| |i|n|t|e|n|t|a| |a|r|r|a|n|c|a|r| |e|n| |m|o|d|o| |s|e|g|u|r|o| |y| |v|e|r|i|f|i|c|a| |s|i| |h|a|y| |a|l|g|ú|n| |p|r|o|b|l|e|m|a| |c|o|n| |l|o|s| |c|o|n|t|r|o|l|a|d|o|r|e|s|.|
+|4|.| |A|s|e|g|ú|r|a|t|e| |d|e| |q|u|e| |l|a| |B|I|O|S| |e|s|t|é| |a|c|t|u|a|l|i|z|a|d|a| |a| |l|a| |ú|l|t|i|m|a| |v|e|r|s|i|ó|n| |d|i|s|p|o|n|i|b|l|e|.|
+|
+|E|s|p|e|r|o| |q|u|e| |e|s|t|o| |t|e| |a|y|u|d|e|.| |¿|H|a|y| |a|l|g|o| |m|á|s| |e|n| |l|o| |q|u|e| |p|u|e|d|a| |a|s|i|s|t|i|r|t|e|?"	La laptop no arranca correctamente y muestra el logo de Lenovo antes de apagarse.	22

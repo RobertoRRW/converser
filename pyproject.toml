@@ -13,7 +13,6 @@ dependencies = [
     "dotenv (>=0.9.9,<0.10.0)",
     "pydantic (>=2.10.6,<3.0.0)",
     "pydantic-graph (>=0.0.43,<0.0.44)",
-    "pydantic-ai (>=0.0.43,<0.0.44)",
     "ijson (>=3.3.0,<4.0.0)",
     "partialjson (>=0.1.0,<0.2.0)",
     "numpy (>=2.2.4,<3.0.0)",
@@ -28,6 +27,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 packages = [{include="converser", from="src"}]
+
+[tool.poetry.scripts]
+conversation = "converser.main:main_cli"
 
 [tool.poetry.group.dev.dependencies]
 basedpyright = "^1.28.3"
