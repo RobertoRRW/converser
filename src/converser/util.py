@@ -59,12 +59,10 @@ class StructuredOutputVoiceWorkflow[T](VoiceWorkflowBase):
         )
 
         # Stream the text from the result
-        print(f'field: {self.dialogue_field}')
         filtered_tokens = filter_json_field(
             VoiceWorkflowHelper.stream_text_from(result), self.dialogue_field
         )
         async for token in filtered_tokens:
-            print(token)
             yield token
 
         # Update the input history and current agent
@@ -73,6 +71,7 @@ class StructuredOutputVoiceWorkflow[T](VoiceWorkflowBase):
         self.result = result
 
 
+# Code below this line is Copyright (c) 2025 OpenAI
 def _record_audio(screen: curses.window) -> npt.NDArray[np.float32]:
     screen.nodelay(True)  # Non-blocking input
     screen.clear()
