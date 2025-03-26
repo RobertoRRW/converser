@@ -11,7 +11,7 @@ async def filter_json_field(token_stream: AsyncIterator[str], target_field_name:
         if done:
             continue # Exhaust the iterator
         buffer += token
-        if token == " ":
+        if token == " " or not token:
             continue
         parsed = parser.parse(buffer)
         response = parsed.get("response") or parsed

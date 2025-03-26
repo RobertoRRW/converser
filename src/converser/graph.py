@@ -188,7 +188,7 @@ class CheckSatisfaction(BaseNode[ConversationState]):
                 ctx.state.state_of_issue = final_state
                 return Farewell()
             case SolutionResponse(dialogue=solution, user_sentiment=sentiment):
-                ctx.state.attempted_solutions += solution
+                ctx.state.attempted_solutions += [solution]
                 ctx.state.user_sentiment = sentiment
                 return CheckSatisfaction()
             case End():

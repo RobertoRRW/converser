@@ -58,7 +58,11 @@ def save_state_as_tsv(state: ConversationState, tsv_file=None):
 
     state_dict = asdict(state)
 
-    state_dict["attempted_solutions"] = json.dumps(state_dict["attempted_solutions"])
+    if state_dict["attempted_solutions"]:
+        state_dict["attempted_solutions"] = "|".join(state_dict["attempted_solutions"])
+    else:
+        state_dict["attempted_solutions"] = ""
+
     state_dict["message_history"] = json.dumps(state_dict["message_history"])
 
     file_exists = os.path.isfile(tsv_file)
