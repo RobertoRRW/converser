@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Annotated
 
 
 from dotenv import load_dotenv
-from pydantic_graph import BaseNode, End, Graph, GraphRunContext
+from pydantic_graph import BaseNode, Edge, End, Graph, GraphRunContext
 
 from converser.agent import (
     ConversationState,
@@ -34,7 +35,7 @@ class Greet(BaseNode[ConversationState]):
     async def run(
         self,
         ctx: GraphRunContext[ConversationState],
-    ) -> CollectEmail | Greet | Farewell:
+    ) -> Annotated[CollectEmail, Edge(label="Ask initial question")] | Greet | Farewell:
         print("Greet")
         result = await audio_input(greeter_agent, ctx)
         match result:
@@ -52,7 +53,9 @@ class CollectEmail(BaseNode[ConversationState]):
     async def run(
         self,
         ctx: GraphRunContext[ConversationState],
-    ) -> ValidateEmail | CollectEmail | Farewell:
+    ) -> (
+        Annotated[ValidateEmail, Edge(label="Ask for email")] | CollectEmail | Farewell
+    ):
         print("CollectEmail")
         result = await audio_input(initial_agent, ctx)
         match result:
@@ -70,7 +73,11 @@ class ValidateEmail(BaseNode[ConversationState]):
     async def run(
         self,
         ctx: GraphRunContext[ConversationState],
-    ) -> CollectDeviceInfo | ValidateEmail | Farewell:
+    ) -> (
+        Annotated[CollectDeviceInfo, Edge(label="Ask about device")]
+        | ValidateEmail
+        | Farewell
+    ):
         print("ValidateEmail")
         result = await audio_input(email_validation_agent, ctx)
         match result:
@@ -90,7 +97,11 @@ class CollectDeviceInfo(BaseNode[ConversationState]):
     async def run(
         self,
         ctx: GraphRunContext[ConversationState],
-    ) -> CollectIssueDetails | CollectDeviceInfo | Farewell:
+    ) -> (
+        Annotated[CollectIssueDetails, Edge(label="Get problem details")]
+        | Annotated[CollectDeviceInfo, Edge(label="Keep collecting")]
+        | Farewell
+    ):
         print("CollectDeviceInfo")
         if self.rounds >= 3:
             # Don't overwhelm the user, simply carry on
@@ -120,7 +131,7 @@ class CollectIssueDetails(BaseNode[ConversationState]):
     async def run(
         self,
         ctx: GraphRunContext[ConversationState],
-    ) -> ProvideSolutions | CollectIssueDetails | Farewell:
+    ) -> Annotated[ProvideSolutions, Edge(label="Look for solutions")] | CollectIssueDetails | Farewell:
         print("CollectIssueDetails")
         if self.rounds >= 3:
             # Don't overwhelm the user, simply carry on
@@ -195,6 +206,7 @@ class Farewell(BaseNode[ConversationState, None, ConversationState]):
         # Simple sink for the graph
         return End(ctx.state)
 
+
 def _make_graph():
     cs_graph = Graph(
         nodes=(
@@ -210,9 +222,11 @@ def _make_graph():
     )
     return cs_graph
 
+
 def make_mermaid() -> str:
     cs_graph = _make_graph()
     return cs_graph.mermaid_code()
+
 
 async def run():
     cs_graph = _make_graph()
