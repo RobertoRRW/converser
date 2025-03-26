@@ -2,18 +2,29 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass, field
+from typing import Any, AsyncIterator, Literal
 
+from agents.items import TResponseInputItem
+
+from agents.run import RunContextWrapper
+from agents.voice.workflow import VoiceWorkflowBase
+import numpy as np
+import sounddevice as sd
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 from pydantic_ai.messages import ModelMessage
 from pydantic_graph import BaseNode, End, Graph, GraphRunContext
+from agents import Agent as OAI_Agent
+
+from converser.util import StructuredOutputVoiceWorkflow, record_audio, AudioPlayer
+from agents.voice import AudioInput, SingleAgentVoiceWorkflow, VoicePipeline
 
 load_dotenv()
 
 
 class DialogueLine(BaseModel):
-    variation: str
+    dialogue: str
 
 
 parrot_agent = Agent(
@@ -25,23 +36,43 @@ parrot_agent = Agent(
 
 @dataclass
 class ConversationState:
+    conversation_language: str = "English"
     initial_query: str | None = None
-    message_history: list[ModelMessage] = field(default_factory=list)
+    message_history: list[TResponseInputItem] = field(default_factory=list)
 
 
 class Unexpected(BaseModel):
     """Return if user's response is unclear"""
 
-    clarification_request: str
+    type_: Literal["unexpected"]
+    dialogue: str = Field(description="Dialogue requesting clarification")
 
 
 class EndCall(BaseModel):
     """Return this if user expresses desire to end the call"""
 
+    type_: Literal["end_request"]
+    dialogue: str = Field(description="Farewell dialogue")
+
+
+class Greeting(BaseModel):
+    detected_language: str
+    dialogue: str
+
+
+greeter_agent = OAI_Agent(
+    name="Greeter",
+    model="gpt-4o-mini",
+    handoff_description="Specialist agent for math questions",
+    instructions="You are a customer service agent for company TechService, say an appropriate customer service greeting. "
+    "Use the same language as the caller.",
+    output_type=Greeting,
+)
+
 
 class InitialInfo(BaseModel):
-    tech_issue: str
-    agent_response: str = Field(description="Agent dialogue requesting user's email")
+    tech_issue: str = Field(description="Short summary of the caller's tech issue")
+    dialogue: str = Field(description="Agent dialogue requesting user's email")
 
 
 initial_agent = Agent(
@@ -50,6 +81,38 @@ initial_agent = Agent(
     "Register relevant information for tech support. "
     "Ask for user's registered email address to continue",
     result_type=InitialInfo | Unexpected | EndCall,  # type: ignore
+)
+
+
+def email_requester_instructions(
+    context: RunContextWrapper[ConversationState], agent: OAI_Agent[ConversationState]
+) -> str:
+    return f"""
+        You are a customer service agent for company TechService.
+        Speak in {context.context.conversation_language}.
+        Your task is to extract an initial description of the caller's problem.
+        It is not your job to debug the issue. Only an initial description.
+        After you get this, ask for the user's registered email.
+        If you could not collect the required information, mark as unknown and
+        ask for clarification
+        ------
+        Examples:
+
+        Normal interaction:
+        User: "My phone is slow"
+        You: {{"tech_issue": "slow phone", "dialogue": "Okay, coul you tell me the email address you have registered with us"}}
+
+        Could not understand:
+        User: "I like turtles"
+        You: {{"type_": "unknown", "dialogue": "Apologies but this is a tech support line, do you have a tech support problem?"}}
+        """
+
+
+initial_agent_oai = OAI_Agent(
+    name="Email Request",
+    model="gpt-4o-mini",
+    instructions=email_requester_instructions,
+    output_type=InitialInfo | Unexpected | EndCall,  # type: ignore
 )
 
 
@@ -83,7 +146,10 @@ class DeviceInfo(BaseModel):
         default=None, description="Brand/manufacturer of the device"
     )
     model: str | None = Field(default=None, description="Model of device")
-    agent_response: str = Field(default="", description="Agent dialogue asking for missing information or confirming complete info")
+    agent_response: str = Field(
+        default="",
+        description="Agent dialogue asking for missing information or confirming complete info",
+    )
 
     def missing_data(self) -> bool:
         return not all((self.device_type, self.brand, self.model))
@@ -144,7 +210,7 @@ solution_agent = Agent(
     "openai:gpt-4o-mini",
     system_prompt="You are a customer service agent for TechService. "
     "Based on the device information and issue description, provide potential solutions. "
-  #  "For now, generate plausible solutions without RAG. "
+    #  "For now, generate plausible solutions without RAG. "
     "Offer step-by-step instructions for the customer to try.",
     result_type=SolutionResponse | Unexpected | EndCall,  # type: ignore
 )
@@ -169,18 +235,44 @@ satisfaction_agent = Agent(
 )
 
 
+async def audio_input(agent: OAI_Agent, ctx: GraphRunContext[ConversationState]) -> Any:
+    workflow = StructuredOutputVoiceWorkflow[ConversationState](
+        agent, "dialogue", ctx.state
+    )
+    pipeline = VoicePipeline(workflow=workflow)
+    audio_input = AudioInput(buffer=record_audio())
+
+    result = await pipeline.run(audio_input)
+
+    # Create an audio player using `sounddevice`
+    with AudioPlayer() as player:
+        # Play the audio stream as it comes in
+        async for event in result.stream():
+            print(event)
+            if event.type == "voice_stream_event_audio":
+                player.add_audio(event.data)  # type: ignore
+
+    ctx.state.message_history = workflow.history
+
+    result = workflow.result.final_output
+    return result
+
+
 @dataclass
 class Greet(BaseNode[ConversationState]):
     async def run(
         self,
         ctx: GraphRunContext[ConversationState],
-    ) -> CollectEmail:
-        result = await parrot_agent.run(
-            "Hello, welcome to Techservice, how can I help you today?"
-        )
-        ctx.state.message_history += result.all_messages()
-        print(result.data.variation)
-        return CollectEmail()
+    ) -> CollectEmail | Greet | Farewell:
+        result = await audio_input(greeter_agent, ctx)
+        match result:
+            case Greeting(detected_language=language):
+                ctx.state.conversation_language = language
+                return CollectEmail()
+            case End():
+                return Farewell()
+            case _:
+                return Greet()
 
 
 @dataclass
@@ -189,21 +281,15 @@ class CollectEmail(BaseNode[ConversationState]):
         self,
         ctx: GraphRunContext[ConversationState],
     ) -> ValidateEmail | CollectEmail | Farewell:
-        query = input()
-        result = await initial_agent.run(
-            f"{query}", message_history=ctx.state.message_history
-        )
-        ctx.state.message_history += result.all_messages()
-        if isinstance(result.data, InitialInfo):
-            ctx.state.initial_query = result.data.tech_issue
-            print(result.data.agent_response)
-            return ValidateEmail()
-        elif isinstance(result.data, Unexpected):
-            print(result.data.clarification_request)
-            return CollectEmail()
-        else:
-            print("Call end requested")
-            return Farewell()
+        result = await audio_input(initial_agent_oai, ctx)
+        match result:
+            case InitialInfo(tech_issue=issue):
+                ctx.state.initial_query = issue
+                return ValidateEmail()
+            case End():
+                return CollectEmail()
+            case _:
+                return Farewell()
 
 
 @dataclass
@@ -214,9 +300,9 @@ class ValidateEmail(BaseNode[ConversationState]):
     ) -> CollectDeviceInfo | ValidateEmail | Farewell:
         query = input()
         result = await email_agent.run(
-            f"{query}", message_history=ctx.state.message_history
+            f"{query}"  # , message_history=ctx.state.message_history
         )
-        ctx.state.message_history += result.all_messages()
+        #        ctx.state.message_history += result.all_messages()
 
         if isinstance(result.data, Email):
             print(result.data.agent_response)
@@ -350,7 +436,7 @@ class Farewell(BaseNode[ConversationState, None, ConversationState]):
     ) -> End[ConversationState]:
         result = await parrot_agent.run("Have a great day")
         ctx.state.message_history += result.all_messages()
-        print(result.data.variation)
+        print(result.data.dialogue)
         return End(ctx.state)
 
 
