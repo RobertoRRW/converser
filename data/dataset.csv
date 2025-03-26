@@ -1,0 +1,197 @@
+text,device_type,brand,model
+"It's an iPhone 13 Pro Max",smartphone,Apple,iPhone 13 Pro Max
+"Just a basic Android phone",smartphone,MISSING,MISSING
+"Some kind of Samsung, not sure which model",unknown,Samsung,MISSING
+"It's my work laptop, a Dell something",laptop,Dell,MISSING
+"I'm not sure what brand it is, sorry",unknown,MISSING,MISSING
+"It's the new PlayStation",gaming_console,Sony,PlayStation
+"Um, it's a TV I think? Maybe LG?",television,LG,MISSING
+"The device is a Roomba vacuum cleaner",smart_home,iRobot,Roomba
+"I don't know anything about it",unknown,MISSING,MISSING
+"It's the thing that connects to the internet",router,MISSING,MISSING
+"A toaster",unknown,MISSING,MISSING
+"Sorry, I'm not good with technology",unknown,MISSING,MISSING
+"It says Lenovo on it",unknown,Lenovo,MISSING
+"I think it's a Series 7 or 8, not sure",unknown,MISSING,MISSING
+"It's the one my son bought me last Christmas",unknown,MISSING,MISSING
+"The tablet thing",tablet,MISSING,MISSING
+"It's one of those smart fridges",smart_home,MISSING,MISSING
+"My son set it up, I don't know what it is",unknown,MISSING,MISSING
+"Just a regular TV remote",television,MISSING,MISSING
+"It's quite old, maybe 5 years",unknown,MISSING,MISSING
+"The XBox",gaming_console,Microsoft,Xbox
+"I think it's made by Samsung",unknown,Samsung,MISSING
+"The little white thing with the Apple logo",unknown,Apple,MISSING
+"It's a phone, that's all I know",smartphone,MISSING,MISSING
+"My computer won't turn on",desktop,MISSING,MISSING
+"Hmm, let me check... it's a Galaxy S21",smartphone,Samsung,Galaxy S21
+"It's the newest iPhone",smartphone,Apple,MISSING
+"Oh, it's just a cheap printer",printer,MISSING,MISSING
+"The device is a Pixel 6a",smartphone,Google,Pixel 6a
+"It's my watch",smartwatch,MISSING,MISSING
+"The big black box under the TV",unknown,MISSING,MISSING
+"Something from Acer I think",unknown,Acer,MISSING
+"Whatever the standard model is",unknown,MISSING,MISSING
+"I don't have the box anymore",unknown,MISSING,MISSING
+"The home theater system",speaker,MISSING,MISSING
+"Model X",unknown,MISSING,X
+"Just a basic monitor",desktop,MISSING,MISSING
+"Whirlpool something",unknown,Whirlpool,MISSING
+"It's not turning on so I can't check",unknown,MISSING,MISSING
+"A real fancy smart speaker",speaker,MISSING,MISSING
+"The device? I have many devices",unknown,MISSING,MISSING
+"No idea, my husband bought it",unknown,MISSING,MISSING
+"Let me look... it's a TCL 6-Series",television,TCL,6-Series
+"A Chromecast",smart_home,Google,Chromecast
+"Some kind of streaming stick",smart_home,MISSING,MISSING
+"The internet box",router,MISSING,MISSING
+"My printer scanner combo",printer,MISSING,MISSING
+"I believe it's a Series 8 Apple Watch",smartwatch,Apple,Series 8
+"A Ring doorbell",smart_home,Ring,MISSING
+"It's the standard issue work laptop",laptop,MISSING,MISSING
+"The thing keeps beeping",unknown,MISSING,MISSING
+"My security camera",smart_home,MISSING,MISSING
+"It's the Alexa device",speaker,Amazon,Alexa
+"I'm having trouble with my car's navigation system",unknown,MISSING,MISSING
+"The thermostat on the wall",smart_home,MISSING,MISSING
+"An old flip phone",smartphone,MISSING,MISSING
+"The 77-inch OLED from LG",television,LG,MISSING
+"A Bose portable speaker, not sure which model",speaker,Bose,MISSING
+"My electric toothbrush",unknown,MISSING,MISSING
+"The baby monitor",smart_home,MISSING,MISSING
+"iPhone... um... the newest one I think?",smartphone,Apple,MISSING
+"I'm not near it right now",unknown,MISSING,MISSING
+"What device? I'm calling about my bill",unknown,MISSING,MISSING
+"The blue one",unknown,MISSING,MISSING
+"Not sure, my IT department set it up",unknown,MISSING,MISSING
+"ASUS ROG gaming laptop",laptop,ASUS,ROG
+"Actually I'm calling about multiple devices",unknown,MISSING,MISSING
+"A Galaxy something",smartphone,Samsung,Galaxy
+"The one I bought last week",unknown,MISSING,MISSING
+"It's very old, maybe 10 years",unknown,MISSING,MISSING
+"A USB-C charger",unknown,MISSING,USB-C
+"It's the school-issued Chromebook",laptop,Google,Chromebook
+"I think it's a Huawei P40",smartphone,Huawei,P40
+"The wearable fitness tracker",smartwatch,MISSING,MISSING
+"My car's infotainment system",unknown,MISSING,MISSING
+"The device that streams Netflix",smart_home,MISSING,MISSING
+"Let me think... it's the Playstation... 4? 5? I'm not sure",gaming_console,Sony,MISSING
+"I was told it's a modem",router,MISSING,MISSING
+"The smart TV in the living room",television,MISSING,MISSING
+"A smart home hub",smart_home,MISSING,MISSING
+"I don't remember the brand",unknown,MISSING,MISSING
+"The GPS device",unknown,MISSING,MISSING
+"A Bluetooth speaker",speaker,MISSING,MISSING
+"The wireless earbuds",headphones,MISSING,MISSING
+"I'm using an iPhone X",smartphone,Apple,X
+"I have a Samsung TV in my living room",television,Samsung,MISSING
+"My laptop is a MacBook Pro",laptop,Apple,Pro
+"I just got a new Google Pixel 7",smartphone,Google,Pixel 7
+"I use a Dell monitor for work",desktop,Dell,MISSING
+"This is on my Sony PlayStation 5",gaming_console,Sony,PlayStation 5
+"I'm typing this on my Surface Pro",tablet,Microsoft,Surface Pro
+"We have an LG refrigerator",smart_home,LG,MISSING
+"My Bose headphones are great",headphones,Bose,MISSING
+"I play games on my Nintendo Switch",gaming_console,Nintendo,Switch
+"I use a Logitech mouse",desktop,Logitech,MISSING
+"My HP printer is out of ink",printer,HP,MISSING
+"Just got a new iPad",tablet,Apple,iPad
+"I have a Galaxy S23 Ultra",smartphone,Samsung,Galaxy S23 Ultra
+"Watching on my Roku TV",television,Roku,TV
+"I use a Lenovo ThinkPad",laptop,Lenovo,ThinkPad
+"My iPhone 14 Pro keeps crashing",smartphone,Apple,iPhone 14 Pro
+"The issue is with my Samsung Smart TV",television,Samsung,MISSING
+"It's an old Kindle Paperwhite",tablet,Amazon,Kindle Paperwhite
+"My AirPods Pro won't connect",headphones,Apple,AirPods Pro
+"The problem is with our Netgear router",router,Netgear,MISSING
+"I think it's a Dell XPS 13",laptop,Dell,XPS 13
+"The Sony headphones I bought last month",headphones,Sony,MISSING
+"A Google Nest thermostat",smart_home,Google,Nest
+"My daughter's iPad Mini",tablet,Apple,iPad Mini
+"The new PS5 slim",gaming_console,Sony,PS5 Slim
+"Our Sharp TV from the living room",television,Sharp,MISSING
+"I'm calling about my Motorola phone",smartphone,Motorola,MISSING
+"The Microsoft Surface Laptop",laptop,Microsoft,Surface Laptop
+"I've got a Sonos speaker",speaker,Sonos,MISSING
+"My Apple Watch Series 9",smartwatch,Apple,Series 9
+"The Canon printer in my office",printer,Canon,MISSING
+"It's a Galaxy Tab S7",tablet,Samsung,Galaxy Tab S7
+"My Alienware gaming desktop",desktop,Alienware,MISSING
+"The Roku streaming stick",smart_home,Roku,MISSING
+"I've got a Fitbit Sense",smartwatch,Fitbit,Sense
+"An ASUS laptop, not sure of the model",laptop,ASUS,MISSING
+"It's that LG OLED TV",television,LG,OLED
+"A JBL Bluetooth speaker",speaker,JBL,MISSING
+"My work-issued ThinkPad",laptop,Lenovo,ThinkPad
+"The issue is with the Epson printer",printer,Epson,MISSING
+"I use a Garmin watch",smartwatch,Garmin,MISSING
+"It's a Mac mini",desktop,Apple,Mac Mini
+"The Beats headphones I got for Christmas",headphones,Beats,MISSING
+"My iPhone, think it's a 12",smartphone,Apple,iPhone 12
+"We have a Vizio TV",television,Vizio,MISSING
+"The problem is with my OnePlus 10",smartphone,OnePlus,OnePlus 10
+"I'm using a Microsoft wireless mouse",desktop,Microsoft,MISSING
+"My daughter's Nintendo Switch Lite",gaming_console,Nintendo,Switch Lite
+"The HP desktop computer",desktop,HP,MISSING
+"It's a Bose soundbar",speaker,Bose,MISSING
+"We got a Linksys mesh router",router,Linksys,MISSING
+"The Google Pixel Tablet",tablet,Google,Pixel Tablet
+"My MSI gaming laptop",laptop,MSI,MISSING
+"The Echo Dot in our kitchen",speaker,Amazon,Echo Dot
+"A Logitech webcam",camera,Logitech,MISSING
+"My Razer gaming headset",headphones,Razer,MISSING
+"It's an Acer Chromebook",laptop,Acer,Chromebook
+"The Samsung Galaxy Watch",smartwatch,Samsung,Galaxy Watch
+"Our Dyson air purifier",smart_home,Dyson,MISSING
+"It's the Xbox Series S",gaming_console,Microsoft,Xbox Series S
+"An old Brother printer",printer,Brother,MISSING
+"My Xiaomi phone",smartphone,Xiaomi,MISSING
+"The computer? It's a Gateway I think",desktop,Gateway,MISSING
+"It's the Ring doorbell camera",smart_home,Ring,MISSING
+"My Sennheiser wireless headphones",headphones,Sennheiser,MISSING
+"It's an outdated Fire tablet",tablet,Amazon,Fire
+"The ASUS router in our basement",router,ASUS,MISSING
+"My Apple TV 4K",smart_home,Apple,Apple TV 4K
+"The GoPro camera I use for hiking",camera,GoPro,MISSING
+"It's a Panasonic TV",television,Panasonic,MISSING
+"I'm having issues with my Fossil smartwatch",smartwatch,Fossil,MISSING
+"The Corsair gaming PC",desktop,Corsair,MISSING
+"A basic Toshiba laptop",laptop,Toshiba,MISSING
+"My Google Home speaker",speaker,Google,Home
+"The problem is with our Sony camera",camera,Sony,MISSING
+"It's a TCL Roku TV",television,TCL,Roku
+"I bought a Skullcandy headset",headphones,Skullcandy,MISSING
+"The new M2 MacBook Air",laptop,Apple,MacBook Air M2
+"Our TP-Link Wi-Fi extender",router,TP-Link,MISSING
+"It's a HyperX gaming keyboard",desktop,HyperX,MISSING
+"My Samsung Galaxy S22",smartphone,Samsung,Galaxy S22
+"The Oculus Quest headset",gaming_console,Meta,Quest
+"A ViewSonic monitor",desktop,ViewSonic,MISSING
+"My Philips Hue lights",smart_home,Philips,Hue
+"It's an old Nokia phone",smartphone,Nokia,MISSING
+"The Western Digital external drive",unknown,Western Digital,MISSING
+"My Jabra earbuds",headphones,Jabra,MISSING
+"Our Insignia TV",television,Insignia,MISSING
+"The issue is with my Huawei laptop",laptop,Huawei,MISSING
+"I have a problem with uhh... a computer... from Dell",desktop,Dell,MISSING
+"So it's like this Apple phone I got two years ago",smartphone,Apple,MISSING
+"I believe it's called a... Chromecast?",smart_home,Google,Chromecast
+"Basically it's a Samsung something or other",unknown,Samsung,MISSING
+"You know, the TV remote",television,MISSING,MISSING
+"Well I'm not sure the brand, but it's definitely a laptop",laptop,MISSING,MISSING
+"Something about an HP... printer or scanner maybe?",printer,HP,MISSING
+"It's that PlayStation thing my kids use",gaming_console,Sony,PlayStation
+"Let's see... oh it's an iPad Air",tablet,Apple,iPad Air
+"The problem's with my, what's it called, modem?",router,MISSING,MISSING
+"I'm pretty sure it's some kinda Android",smartphone,MISSING,MISSING
+"My husband's wireless headphones, I think they're Sony",headphones,Sony,MISSING
+"It's one of those smart home thingies",smart_home,MISSING,MISSING
+"The watch that tracks my steps",smartwatch,MISSING,MISSING
+"Oh, it's simply called a Mac",desktop,Apple,Mac
+"The system is an Xbox... not sure which generation",gaming_console,Microsoft,Xbox
+"It's like a wireless speaker from Amazon",speaker,Amazon,MISSING
+"I'm trying to figure out my Lenovo... something",unknown,Lenovo,MISSING
+"Let me check the label... it says Dell Inspiron",laptop,Dell,Inspiron
+"I think it's a 50-inch from LG",television,LG,MISSING
+"One of them Google phones",smartphone,Google,MISSING
+"It's uh... some kinda wireless earbuds",headphones,MISSING,MISSING

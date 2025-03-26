@@ -1,18 +1,19 @@
 import curses
 import time
 
+from agents.voice.input import AudioInput
+from agents.voice.pipeline import VoicePipeline
 import numpy as np
 import numpy.typing as npt
-from pydantic_ai.messages import ModelMessage
 from pydantic_graph import GraphRunContext
 import sounddevice as sd
 
 from agents import Agent
-from pydantic_ai import Agent as PydanticAgent
 from typing import Any, AsyncIterator
 from agents.voice.workflow import VoiceWorkflowBase, VoiceWorkflowHelper
 from agents.items import TResponseInputItem
 from agents import Runner
+from converser.agent import ConversationState
 from converser.parser import filter_json_field
 
 
@@ -36,9 +37,7 @@ class StructuredOutputVoiceWorkflow[T](VoiceWorkflowBase):
             agent: The agent to run.
             callbacks: Optional callbacks to call during the workflow.
         """
-        self.history: list[TResponseInputItem] = (
-            [] if history is None else history
-        )
+        self.history: list[TResponseInputItem] = [] if history is None else history
         self._current_agent = agent
         self.dialogue_field = dialogue_field
         self.context = context
@@ -51,7 +50,7 @@ class StructuredOutputVoiceWorkflow[T](VoiceWorkflowBase):
                 "content": transcription,
             }
         )
-        print(f'heard: {transcription}')
+        print(f"heard: {transcription}")
 
         # Run the agent
         result = Runner.run_streamed(
@@ -69,6 +68,26 @@ class StructuredOutputVoiceWorkflow[T](VoiceWorkflowBase):
         self.history = result.to_input_list()
         self._current_agent = result.last_agent
         self.result = result
+
+
+async def audio_input(agent: Agent, ctx: GraphRunContext[ConversationState]) -> Any:
+    workflow = StructuredOutputVoiceWorkflow[ConversationState](
+        agent, "dialogue", ctx.state, ctx.state.message_history
+    )
+    pipeline = VoicePipeline(workflow=workflow)
+    audio_input = AudioInput(buffer=record_audio())
+
+    result = await pipeline.run(audio_input)
+
+    with AudioPlayer() as player:
+        async for event in result.stream():
+            if event.type == "voice_stream_event_audio":
+                player.add_audio(event.data)  # type: ignore
+
+    ctx.state.message_history = workflow.history
+
+    result = workflow.result.final_output
+    return result
 
 
 # Code below this line is Copyright (c) 2025 OpenAI
