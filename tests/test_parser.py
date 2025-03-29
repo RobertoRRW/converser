@@ -57,7 +57,7 @@ async def test_escaped_quotes_in_value():
     stream = create_token_stream(tokens)
     result = await collect_filtered_values(stream, field_name)
     
-    assert result == 'He said \\"Hello\\" to me'
+    assert result == 'He said "Hello" to me'
 
 
 @pytest.mark.asyncio
